@@ -3,7 +3,6 @@ import { Route, Routes } from 'react-router-dom';
 
 import Layout from './components/UI/Layout';
 import Home from './pages/Home';
-import Dashboard from './pages/Dashboard';
 import Profile from './pages/Profile';
 
 function App() {
@@ -11,7 +10,6 @@ function App() {
     <Layout>
       <Routes>
         <Route path='/' element={<Home />} />
-        <Route path='/dashboard' element={<Dashboard />} />
         <Route path='/profile' element={<Profile />} />
       </Routes>
     </Layout>

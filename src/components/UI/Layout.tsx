@@ -9,11 +9,11 @@ interface LayoutProps {
 
 const Layout = ({ children }: LayoutProps) => {
   return (
-    <>
+    <div className='w-screen h-screen bg-primary text-white'>
       <Header />
-      {children}
+      <div className='mx-auto w-4/5 my-10'>{children}</div>
       <Footer />
-    </>
+    </div>
   );
 };
 
