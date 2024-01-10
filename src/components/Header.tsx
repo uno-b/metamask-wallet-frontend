@@ -1,14 +1,17 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { SiVivawallet } from 'react-icons/si';
 import { FaRegUser } from 'react-icons/fa';
-
-import { Link } from 'react-router-dom';
 
 import ConnectButton from './ConnectButton';
 
 const Header = () => {
   // TODO: change to useContext
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  const handleSignOut = () => {
+    // TODO
+  };
 
   return (
     <div className='bg-secondary'>
@@ -17,11 +20,10 @@ const Header = () => {
           <SiVivawallet className='text-4xl' />
         </Link>
 
-        {/* TODO */}
         {isLoggedIn ? (
-          <>
+          <div className='relative group'>
             <button
-              className='text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800'
+              className='text-white font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center'
               type='button'
             >
               <FaRegUser className='text-xl' />{' '}
@@ -44,22 +46,28 @@ const Header = () => {
 
             <div
               id='dropdownHover'
-              className='z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700'
+              className={`absolute top-10 left-0 z-10 hidden group-hover:block bg-white divide-y divide-gray-100 rounded-lg shadow w-44`}
             >
-              <ul className='py-2 text-sm text-gray-700 dark:text-gray-200'>
+              <ul className='py-2 text-sm text-gray-700'>
                 <li>
-                  <button className='block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white'>
+                  <Link
+                    to='/profile'
+                    className='block px-4 py-2 hover:bg-gray-100 w-full '
+                  >
                     Profile
-                  </button>
+                  </Link>
                 </li>
                 <li>
-                  <button className='block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white'>
+                  <button
+                    onClick={handleSignOut}
+                    className='block px-4 py-2 hover:bg-gray-100 w-full text-start'
+                  >
                     Sign out
                   </button>
                 </li>
               </ul>
             </div>
-          </>
+          </div>
         ) : (
           <ConnectButton />
         )}
