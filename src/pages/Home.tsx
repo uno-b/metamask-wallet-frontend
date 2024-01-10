@@ -1,25 +1,21 @@
 import React, { useState } from 'react';
-import { SiVivawallet } from 'react-icons/si';
-import ConnectButton from '../components/ConnectButton';
-import LoginModal from '../components/Modals/Login';
+import { Helmet } from 'react-helmet';
+
+import LoggedIn from '../components/HomeStates/LoggedIn';
+import LoggedOut from '../components/HomeStates/LoggedOut';
 
 const Home = () => {
-  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  // TODO: Add the logged-in/logged-out states
 
   return (
     <>
-      <div>
-        <div className='flex flex-col items-center'>
-          <SiVivawallet className='text-4xl' />
-          <p className='mt-2 italic'>Wallet you can trust</p>
-          <ConnectButton
-            onClick={() => setIsLoginModalOpen((prev) => !prev)}
-            className='mt-10'
-          />
-        </div>
-      </div>
+      <Helmet>
+        <title>Wallet</title>
+      </Helmet>
 
-      <LoginModal isOpen={isLoginModalOpen} setIsOpen={setIsLoginModalOpen} />
+      {isLoggedIn ? <LoggedIn /> : <LoggedOut />}
     </>
   );
 };

@@ -2,16 +2,22 @@ import React, { useState } from 'react';
 import { SiVivawallet } from 'react-icons/si';
 import { FaRegUser } from 'react-icons/fa';
 
+import { Link } from 'react-router-dom';
+
 import ConnectButton from './ConnectButton';
 
 const Header = () => {
   // TODO: change to useContext
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   return (
     <div className='bg-secondary'>
       <div className='w-4/5 mx-auto  flex justify-between py-10'>
-        <SiVivawallet className='text-4xl' />
+        <Link to='/'>
+          <SiVivawallet className='text-4xl' />
+        </Link>
+
+        {/* TODO */}
         {isLoggedIn ? (
           <>
             <button

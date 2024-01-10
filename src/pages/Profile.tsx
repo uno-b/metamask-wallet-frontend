@@ -1,10 +1,17 @@
 import React from 'react';
+import { Helmet } from 'react-helmet';
 
 const Profile = () => {
+  // TODO
+
   return (
-    <div>
+    <>
+      <Helmet>
+        <title>Wallet | User Profile</title>
+      </Helmet>
+
       <div>Profile</div>
-    </div>
+    </>
   );
 };
 
