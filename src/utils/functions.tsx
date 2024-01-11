@@ -38,3 +38,31 @@ export const eraseCookie = (name: string) => {
 
   document.cookie = name + '=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
 };
+
+export const getUserData = (userDataKey: string) => {
+  const fetchedUserData = getCookie('userData');
+
+  if (fetchedUserData) {
+    const parsed = JSON.parse(fetchedUserData);
+    return parsed[userDataKey];
+  } else {
+    return null;
+  }
+};
+
+export const updateUserData = (
+  userDataKey: string,
+  value: string,
+  days = 7
+) => {
+  const fetchedUserData = getCookie('userData');
+
+  if (fetchedUserData) {
+    const parsed = JSON.parse(fetchedUserData);
+    setCookie(
+      'userData',
+      JSON.stringify({ ...parsed, [userDataKey]: value }),
+      days
+    );
+  }
+};

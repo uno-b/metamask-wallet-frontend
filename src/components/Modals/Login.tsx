@@ -1,22 +1,45 @@
 import React, { useState } from 'react';
-import { useSDK } from '@metamask/sdk-react';
+import axios from 'axios';
+import { ethers } from 'ethers';
 import { FaWallet } from 'react-icons/fa';
 import { ImCross } from 'react-icons/im';
 
 import Overlay from '../UI/Overlay';
 import Metamask from '../../images/metamask.webp';
 import { useGlobalContext } from '../../context/useContext';
+import { setCookie } from '../../utils/functions';
 
 const Login = () => {
-  const { isModalOpen, setIsModalOpen } = useGlobalContext();
-  const { sdk } = useSDK();
+  const { isModalOpen, setIsModalOpen, setIsLoggedIn } = useGlobalContext();
 
-  const handleLogin = async () => {
+  const handleLogin = async (e: any) => {
+    e.preventDefault();
+
     try {
-      const accounts = await sdk?.connect();
-      console.log('fetched accounts:', accounts);
+      const message = 'Welcome to the space!';
+
+      const provider = new ethers.BrowserProvider(window.ethereum!);
+      const signer = await provider.getSigner();
+      const signature = await signer.signMessage(message);
+      const address = await signer.getAddress();
+
+      console.log('I got', signer, signature, address);
+
+      const result = await axios.post(
+        `${process.env.REACT_APP_API_URI}/login`,
+        {
+          address,
+          message,
+          signature,
+        }
+      );
+
+      setCookie('token', result.data.token, 1);
+      setIsLoggedIn(true);
+      setIsModalOpen(false);
     } catch (err) {
       console.warn(`failed to connect..`, err);
+      // TODO: hot toast
     }
   };
 

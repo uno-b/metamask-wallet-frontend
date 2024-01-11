@@ -1,12 +1,13 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Helmet } from 'react-helmet';
 
 import LoggedIn from '../components/HomeStates/LoggedIn';
 import LoggedOut from '../components/HomeStates/LoggedOut';
 import LoginModal from '../components/Modals/Login';
+import { useGlobalContext } from '../context/useContext';
 
 const Home = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const { isLoggedIn } = useGlobalContext();
 
   return (
     <>

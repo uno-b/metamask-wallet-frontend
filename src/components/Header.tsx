@@ -1,16 +1,18 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { SiVivawallet } from 'react-icons/si';
 import { FaRegUser } from 'react-icons/fa';
 
 import ConnectButton from './ConnectButton';
+import { useGlobalContext } from '../context/useContext';
+import { eraseCookie } from '../utils/functions';
 
 const Header = () => {
-  // TODO: change to useContext
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const { isLoggedIn, setIsLoggedIn } = useGlobalContext();
 
   const handleSignOut = () => {
-    // TODO
+    eraseCookie('token');
+    setIsLoggedIn(false);
   };
 
   return (
