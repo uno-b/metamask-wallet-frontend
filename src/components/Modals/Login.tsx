@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import axios from 'axios';
 import { ethers } from 'ethers';
 import { useSDK } from '@metamask/sdk-react';
@@ -9,6 +9,7 @@ import Overlay from '../UI/Overlay';
 import Metamask from '../../images/metamask.webp';
 import { useGlobalContext } from '../../context/useContext';
 import { setCookie } from '../../utils/functions';
+import toast from 'react-hot-toast';
 
 const Login = () => {
   const { isModalOpen, setIsModalOpen, setIsLoggedIn } = useGlobalContext();
@@ -27,8 +28,6 @@ const Login = () => {
       const signature = await signer.signMessage(message);
       const address = await signer.getAddress();
 
-      console.log('I got', signer, signature, address);
-
       const result = await axios.post(
         `${process.env.REACT_APP_API_URI}/login`,
         {
@@ -39,11 +38,14 @@ const Login = () => {
       );
 
       setCookie('token', result.data.token, 1);
+      setCookie('id', result.data.user._id, 1);
       setIsLoggedIn(true);
       setIsModalOpen(false);
+
+      toast.success('Signed in');
     } catch (err) {
       console.warn(`failed to connect..`, err);
-      // TODO: hot toast
+      toast.error('There was an error');
     }
   };
 

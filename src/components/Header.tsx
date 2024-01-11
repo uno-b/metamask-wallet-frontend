@@ -1,18 +1,24 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { SiVivawallet } from 'react-icons/si';
 import { FaRegUser } from 'react-icons/fa';
 
 import ConnectButton from './ConnectButton';
 import { useGlobalContext } from '../context/useContext';
 import { eraseCookie } from '../utils/functions';
+import toast from 'react-hot-toast';
 
 const Header = () => {
   const { isLoggedIn, setIsLoggedIn } = useGlobalContext();
+  const navigate = useNavigate();
 
   const handleSignOut = () => {
     eraseCookie('token');
     setIsLoggedIn(false);
+    navigate('/');
+
+    toast.success('Signed out');
   };
 
   return (

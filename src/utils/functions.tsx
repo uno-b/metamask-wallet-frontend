@@ -49,20 +49,3 @@ export const getUserData = (userDataKey: string) => {
     return null;
   }
 };
-
-export const updateUserData = (
-  userDataKey: string,
-  value: string,
-  days = 7
-) => {
-  const fetchedUserData = getCookie('userData');
-
-  if (fetchedUserData) {
-    const parsed = JSON.parse(fetchedUserData);
-    setCookie(
-      'userData',
-      JSON.stringify({ ...parsed, [userDataKey]: value }),
-      days
-    );
-  }
-};

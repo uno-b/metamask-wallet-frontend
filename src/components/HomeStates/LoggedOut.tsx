@@ -1,12 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { SiVivawallet } from 'react-icons/si';
 
 import ConnectButton from '../ConnectButton';
 
 const LoggedOut = () => {
-  // TODO: Check if first time
-  // TODO: Show welcome message + personal information
-
   return (
     <div>
       <div className='flex flex-col items-center'>
