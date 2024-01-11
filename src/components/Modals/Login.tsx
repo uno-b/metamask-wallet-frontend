@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { ethers } from 'ethers';
+import { useSDK } from '@metamask/sdk-react';
 import { FaWallet } from 'react-icons/fa';
 import { ImCross } from 'react-icons/im';
 
@@ -11,11 +12,14 @@ import { setCookie } from '../../utils/functions';
 
 const Login = () => {
   const { isModalOpen, setIsModalOpen, setIsLoggedIn } = useGlobalContext();
+  const { sdk } = useSDK();
 
   const handleLogin = async (e: any) => {
     e.preventDefault();
 
     try {
+      await sdk?.connect();
+
       const message = 'Welcome to the space!';
 
       const provider = new ethers.BrowserProvider(window.ethereum!);
