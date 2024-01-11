@@ -6,9 +6,7 @@ import LoggedOut from '../components/HomeStates/LoggedOut';
 import LoginModal from '../components/Modals/Login';
 
 const Home = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
-
-  // TODO: Add the logged-in/logged-out states
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   return (
     <>

@@ -9,28 +9,32 @@ export const validateEmail = (email: string) => {
     );
 };
 
-export const validatePassword = (password: string) => {
-  /*
-      At least one uppercase letter
-      At least one lowercase letter
-      At least one digit
-      At least one special symbol
-      should be more than 6 characters
-      */
-
-  return (
-    /[A-Z]/.test(password) &&
-    /[a-z]/.test(password) &&
-    /[0-9]/.test(password) &&
-    /[^A-Za-z0-9]/.test(password) &&
-    password.length > 6
-  );
+/*
+  Cookie functions 
+  */
+export const setCookie = (name: string, value: string, days: number) => {
+  var expires = '';
+  if (days) {
+    var date = new Date();
+    date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
+    expires = '; expires=' + date.toUTCString();
+  }
+  document.cookie = name + '=' + (value || '') + expires + '; path=/';
 };
 
-export const validateFileType = (type: string) => {
-  if (type === 'jpg' || type === 'png' || type === 'mp4') {
-    return true;
-  } else {
-    return false;
+export const getCookie = (name: string) => {
+  var nameEQ = name + '=';
+  var ca = document.cookie.split(';');
+  for (var i = 0; i < ca.length; i++) {
+    var c = ca[i];
+    while (c.charAt(0) === ' ') c = c.substring(1, c.length);
+    if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
   }
+  return null;
+};
+
+export const eraseCookie = (name: string) => {
+  if (!document) return;
+
+  document.cookie = name + '=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
 };

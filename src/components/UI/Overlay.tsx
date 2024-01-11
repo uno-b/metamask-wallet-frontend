@@ -1,7 +1,3 @@
-import { useRef } from 'react';
-
-import { useOutsideAlerter } from '../../utils/hooks';
-
 type OverlayProps = {
   children: React.ReactNode;
   isOpen?: boolean;
@@ -13,10 +9,6 @@ const Overlay = ({
   isOpen = true,
   setIsOpen = () => {},
 }: OverlayProps) => {
-  /* Hide overlay when clicked outside */
-  const wrapperRef = useRef(null);
-  useOutsideAlerter(wrapperRef, () => setIsOpen(false));
-
   return (
     <div
       className={`fixed z-50 inset-0 bg-black/70 flex justify-center items-center transition-all`}
@@ -25,7 +17,7 @@ const Overlay = ({
         pointerEvents: isOpen ? 'auto' : 'none',
       }}
     >
-      <div ref={wrapperRef}>{children}</div>
+      <div>{children}</div>
     </div>
   );
 };

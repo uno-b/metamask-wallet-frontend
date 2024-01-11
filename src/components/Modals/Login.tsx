@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useSDK } from '@metamask/sdk-react';
 import { FaWallet } from 'react-icons/fa';
 import { ImCross } from 'react-icons/im';
 
@@ -8,6 +9,16 @@ import { useGlobalContext } from '../../context/useContext';
 
 const Login = () => {
   const { isModalOpen, setIsModalOpen } = useGlobalContext();
+  const { sdk } = useSDK();
+
+  const handleLogin = async () => {
+    try {
+      const accounts = await sdk?.connect();
+      console.log('fetched accounts:', accounts);
+    } catch (err) {
+      console.warn(`failed to connect..`, err);
+    }
+  };
 
   return (
     <Overlay isOpen={isModalOpen} setIsOpen={setIsModalOpen}>
@@ -25,7 +36,10 @@ const Login = () => {
           <div className='w-full border border-b-1 mt-2' />
         </div>
 
-        <button className='w-full mt-10 px-4 py-2 bg-white text-black rounded-md flex items-center space-x-4'>
+        <button
+          onClick={handleLogin}
+          className='w-full mt-10 px-4 py-2 bg-white text-black rounded-md flex items-center space-x-4'
+        >
           <img src={Metamask} alt='Metamask logo' className='w-6 h-6' />
           <p className='font-semibold'>METAMASK</p>
         </button>
